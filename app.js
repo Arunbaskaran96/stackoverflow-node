@@ -7,6 +7,8 @@ app.use(bodyparser.json());
 app.use(cors());
 
 const UserController = require("./Controllers/Auth/UserController");
+const SigninController = require("./Controllers/Auth/SigninController");
 app.use("/", UserController);
+app.use("/", SigninController);
 
 module.exports = app;
