@@ -8,7 +8,9 @@ app.use(cors());
 
 const UserController = require("./Controllers/Auth/UserController");
 const SigninController = require("./Controllers/Auth/SigninController");
+const QuestionController = require("./Controllers/QuestionController");
 app.use("/", UserController);
 app.use("/", SigninController);
+app.use("/", QuestionController);
 
 module.exports = app;
