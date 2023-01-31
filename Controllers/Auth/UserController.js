@@ -5,6 +5,8 @@ const users = require("../../models/Usermodel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const secret = "Arun";
+const authverify = require("../Middleware/Verify");
+const userverify = require("../Middleware/Userid");
 
 router.post("/register", async (req, res) => {
   try {
@@ -44,7 +46,7 @@ router.get("/user/:id", (req, res) => {
     });
 });
 
-router.get("/user", (req, res) => {
+router.get("/user", authverify, userverify, (req, res) => {
   const email = req.Token.email;
   users.findOne({ email: email }).then((result) => {
     if (result) {
