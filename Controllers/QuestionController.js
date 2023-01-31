@@ -3,8 +3,10 @@ const router = express.Router();
 const mongoose = require("mongoose");
 
 const questions = require("../models/QuestionModel");
+const authverify = require("../Controllers/Middleware/Verify");
+const userverify = require("../Controllers/Middleware/Userid");
 
-router.post("/question", (req, res) => {
+router.post("/question", authverify, userverify, (req, res) => {
   const id = req.userUniqueId ? req.userUniqueId : null;
 
   const addQuestion = new questions({
@@ -26,7 +28,7 @@ router.post("/question", (req, res) => {
     });
 });
 
-router.get("/questions", (req, res) => {
+router.get("/questions", authverify, (req, res) => {
   questions
     .find()
     .populate("askedby")
@@ -43,7 +45,7 @@ router.get("/questions", (req, res) => {
     });
 });
 
-router.get("/question/:id", (req, res) => {
+router.get("/question/:id", authverify, (req, res) => {
   questions
     .find({ _id: req.params.id })
     .populate("askedby")
